@@ -1,0 +1,66 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package itenas.is.perscents.view;
+
+import itenas.is.perscents.model.Parfum;
+import itenas.is.perscents.model.ParfumCollection;
+import itenas.is.perscents.model.TingkatKetahanan;
+import itenas.is.perscents.service.ParfumService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**1
+ * 1
+ * 
+ *
+ * @author ASUS
+ */
+public class Main {
+    static Scanner input = new Scanner(System.in);
+    static ParfumService service = new ParfumService();
+
+
+    public static void main(String[] args) {
+
+        System.out.println("\n=== MAIN MENU PERSCENTS ===");
+        System.out.println("1. Menu Pembeli");
+        System.out.println("2. Menu Admin");
+        System.out.println("0. Keluar Aplikasi");
+        System.out.print("Pilih Menu: ");
+            
+        int menu = input.nextInt();
+        input.nextLine(); 
+
+        switch (menu) {
+            case 1:
+                PembeliMenu pembeli = new PembeliMenu();
+                pembeli.showMenuPembeli();
+                break;
+            case 2:
+                AdminMenu admin = new AdminMenu();
+                admin.showMenu();
+                break;
+            case 0:
+                System.out.println("Bye bye!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Menu tidak ada.");
+        }
+    }
+}
+class ItemTransaksi {
+    String namaItem;
+    String spek;
+    double harga;
+
+    public ItemTransaksi(String namaItem, String spek, double harga) {
+        this.namaItem = namaItem;
+        this.spek = spek;
+        this.harga = harga;
+    }
+}
+    
