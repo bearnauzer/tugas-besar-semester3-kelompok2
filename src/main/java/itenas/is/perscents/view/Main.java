@@ -40,8 +40,27 @@ public class Main {
                 pembeli.showMenuPembeli();
                 break;
             case 2:
-                AdminMenu admin = new AdminMenu();
-                admin.showMenu();
+                boolean loginGagal = true;
+                do {
+                    System.out.println("---LOGIN ADMIN---");
+                    System.out.print("masukkan username : ");
+                    String username = input.nextLine();
+                    System.out.print("masukkan password : ");
+                    String password = input.nextLine();
+
+                    String usnBenar = "admin";
+                    String passwordBenar = "andesoop";
+
+                    if (username.equals(usnBenar) && password.equals(passwordBenar)) {
+                        System.out.println("Login Berhasil!");
+                        loginGagal = false;
+
+                        AdminMenu admin = new AdminMenu();
+                        admin.showMenu();
+                    } else {
+                        System.out.println("Username atau Password salah. Silakan coba lagi.");
+                    }
+                } while (loginGagal);
                 break;
             case 0:
                 System.out.println("Bye bye!");
@@ -52,15 +71,5 @@ public class Main {
         }
     }
 }
-class ItemTransaksi {
-    String namaItem;
-    String spek;
-    double harga;
 
-    public ItemTransaksi(String namaItem, String spek, double harga) {
-        this.namaItem = namaItem;
-        this.spek = spek;
-        this.harga = harga;
-    }
-}
     

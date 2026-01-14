@@ -9,6 +9,7 @@ import itenas.is.perscents.model.ParfumCollection;
 import itenas.is.perscents.model.TingkatKetahanan;
 import itenas.is.perscents.model.Transaksi;
 import itenas.is.perscents.service.ParfumService;
+import itenas.is.perscents.service.QRService;
 import itenas.is.perscents.service.TransaksiService;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +39,14 @@ public class PembeliMenu {
     }
 
     public void showMenuPembeli() {
-        try {
+        boolean belanja = true;
+        while (belanja){
+            try {
             System.out.println("\n=== SELAMAT DATANG DI PERSCENTS ===");
             System.out.println("1. Parfum Pria");
             System.out.println("2. Parfum Wanita");
             System.out.println("3. Parfum Anak-anak");
-            System.out.println("4. Keluar");
+            System.out.println("4. Checkout");
             System.out.print("Pilih Kategori (1-4): ");
 
             int pilihan = input.nextInt();
@@ -59,13 +62,14 @@ public class PembeliMenu {
                     menuAnak();
                     break;
                 case 4:
-                    System.out.println("Terima kasih!");
+                    checkout();
                     System.exit(0);
                 default:
                     System.out.println("Pilihan tidak valid!");
             }
-        } catch (Exception e) {
-            System.out.println("Terjadi kesalahan input!");
+            } catch (Exception e) {
+                System.out.println("Terjadi kesalahan input!");
+            }
         }
     }
 
@@ -142,7 +146,15 @@ public class PembeliMenu {
             ItemTransaksi item = new ItemTransaksi(parfumDipilih.getNamaProduk(), ketahananDipilih.name(), totalHarga);
             keranjang.add(item);
             
-            checkout();
+            System.out.println("\n[BERHASIL] Produk dimasukkan ke keranjang.");
+            
+            //keranjang
+            
+            System.out.print("\nTambah parfum lain? (Y/N): ");
+            String lagi = input.next();
+            if (lagi.equalsIgnoreCase("N")) {
+                checkout();
+            }
 
         } else if (pilih == 2) { //CUSTOM INI BANG
             System.out.println("\n--- PARFUM CUSTOM ---");
@@ -215,9 +227,9 @@ public class PembeliMenu {
             }
 
             System.out.println("\n--- PILIH TINGKAT KETAHANAN ---");
-            System.out.println("1. Light");
-            System.out.println("2. Balance");
-            System.out.println("3. Signature");
+            System.out.println("1. Light (Harga Tetap)");
+            System.out.println("2. Balance (+Rp 30.000)");
+            System.out.println("3. Signature (+Rp 40.000)");
             System.out.print("Pilih: ");
             int tahan = input.nextInt();
 
@@ -246,7 +258,15 @@ public class PembeliMenu {
             ItemTransaksi item = new ItemTransaksi(namaRacikan, ketahananDipilih.name(), totalHarga);
             keranjang.add(item);
 
-            checkout();
+            System.out.println("\n[BERHASIL] Produk dimasukkan ke keranjang.");
+            
+            //keranjang
+            
+            System.out.print("\nTambah parfum lain? (Y/N): ");
+            String lagi = input.next();
+            if (lagi.equalsIgnoreCase("N")) {
+                checkout();
+            }
         }
     }
     
@@ -322,8 +342,15 @@ public class PembeliMenu {
             ItemTransaksi item = new ItemTransaksi(parfumDipilih.getNamaProduk(), ketahananDipilih.name(), totalHarga);
             keranjang.add(item);
             
-            checkout();
-
+            System.out.println("\n[BERHASIL] Produk dimasukkan ke keranjang.");
+            
+            //keranjang
+            
+            System.out.print("\nTambah parfum lain? (Y/N): ");
+            String lagi = input.next();
+            if (lagi.equalsIgnoreCase("N")) {
+                checkout();
+            }
         } else if (pilih == 2) { //CUSTOM INI BANG
             System.out.println("\n--- PARFUM CUSTOM ---");
             System.out.println("Harga Flat: Rp 160.000 (Max 3 Aroma)");
@@ -395,9 +422,9 @@ public class PembeliMenu {
             }
 
             System.out.println("\n--- PILIH TINGKAT KETAHANAN ---");
-            System.out.println("1. Light");
-            System.out.println("2. Balance");
-            System.out.println("3. Signature");
+            System.out.println("1. Light (Harga Tetap)");
+            System.out.println("2. Balance (+Rp 30.000)");
+            System.out.println("3. Signature (+Rp 40.000)");
             System.out.print("Pilih: ");
             int tahan = input.nextInt();
 
@@ -427,8 +454,16 @@ public class PembeliMenu {
 
             ItemTransaksi item = new ItemTransaksi(namaRacikan, ketahananDipilih.name(), totalHarga);
             keranjang.add(item);
-
-            checkout();
+            
+            System.out.println("\n[BERHASIL] Produk dimasukkan ke keranjang.");
+            
+            //keranjang
+            
+            System.out.print("\nTambah parfum lain? (Y/N): ");
+            String lagi = input.next();
+            if (lagi.equalsIgnoreCase("N")) {
+                checkout();
+            }
         }
     }
 
@@ -492,23 +527,72 @@ public class PembeliMenu {
         ItemTransaksi item = new ItemTransaksi(parfumDipilih.getNamaProduk(), ketahananDipilih.name(), totalHarga);
         keranjang.add(item);
             
-        checkout();
+        System.out.println("\n[BERHASIL] Produk dimasukkan ke keranjang.");
+            
+        //keranjang
+            
+        System.out.print("\nTambah parfum lain? (Y/N): ");
+        String lagi = input.next();
+        if (lagi.equalsIgnoreCase("N")) {
+            checkout();
+        }
+    }
+    
+        private static void cetakStrukFinal(Transaksi trx, double uangDibayar) {
+        System.out.println("\n\n");
+        System.out.println("==================================================");
+        System.out.println("                PERSCENTS STORE                   ");
+        System.out.println("          Jl.  PH.H. Mustofa No.23                "); 
+        System.out.println("==================================================");
+
+        // Info Header Struk
+        System.out.printf(" No. Transaksi : #%d\n", trx.getIdTransaksi());
+        System.out.printf(" Nama Pembeli  : %s\n", trx.getNamaPembeli());
+        System.out.printf(" Metode Bayar  : %s\n", trx.getMetodeBayar());
+        System.out.println("--------------------------------------------------");
+
+        // Daftar Item
+        System.out.printf("%-22s   %-10s   %12s\n", "Item", "Tipe", "Harga");
+        System.out.println("--------------------------------------------------");
+
+        for (Parfum p : trx.getItems()) {
+            String namaPrint = p.getNamaProduk();
+            if (namaPrint.length() > 22) namaPrint = namaPrint.substring(0, 19) + "...";
+
+            String ketahanan = "Custom";
+            if (p instanceof ParfumCollection) {
+                ketahanan = ((ParfumCollection) p).getKetahanan().toString();
+            }
+
+            System.out.printf("%-22s   %-10s   Rp%,12.0f\n", namaPrint, ketahanan, p.getHarga());
+        }
+
+        System.out.println("--------------------------------------------------");
+        System.out.printf(" TOTAL BELANJA                 Rp%,12.0f\n", trx.getTotalAkhir());
+
+        if (trx.getMetodeBayar().equalsIgnoreCase("Cash")) {
+            System.out.printf(" TUNAI                         Rp%,12.0f\n", uangDibayar);
+            System.out.printf(" KEMBALIAN                     Rp%,12.0f\n", (uangDibayar - trx.getTotalAkhir()));
+        } else {
+            System.out.println(" STATUS                        LUNAS (QRIS/Debit)");
+        }
+
+        System.out.println("==================================================");
+        System.out.println("        TERIMA KASIH TELAH BERBELANJA             ");
+        System.out.println("          STAY FRESH WITH PERSCENTS               ");
+        System.out.println("==================================================");
+        System.out.println("\n");
     }
 
     static void checkout() {
-        // 1. Cek keranjang
         if (keranjang.isEmpty()) {
             System.out.println("\nKeranjang kosong! Pilih parfum dulu.");
             return;
         }
 
-        // --- STRUK RAPI (Ganteng) ---
         System.out.println("\n==================================================");
-        // Menggunakan format center manual agar pas di lebar 50
         System.out.println("                 PERSCENTS STORE                  ");
         System.out.println("==================================================");
-        
-        // Header Kolom: Item (22 char), Tipe (10 char), Harga (15 char)
         System.out.printf("%-22s   %-10s   %12s\n", "Item", "Tipe", "Harga");
         System.out.println("--------------------------------------------------");
 
@@ -516,85 +600,78 @@ public class PembeliMenu {
         
         // Loop keranjang
         for (ItemTransaksi item : keranjang) {
-            // Kita perlebar limit nama jadi 22 karakter biar lebih lega
             String namaPrint = item.namaItem.length() > 22 ? item.namaItem.substring(0, 22) : item.namaItem;
             
-            // %-22s (Rata kiri 22 spasi), %12s (Rata kanan buat harga biar lurus)
             System.out.printf("%-22s   %-10s   Rp%,10.0f\n", namaPrint, item.spek, item.harga);
             
             totalBayar += item.harga;
         }
         
         System.out.println("--------------------------------------------------");
-        // Bagian Total dibuat align ke kanan
-        System.out.printf("TOTAL TAGIHAN Rp%,10.0f\n", ":", totalBayar);
+        System.out.printf("TOTAL TAGIHAN Rp%,10.0f\n", totalBayar);
         System.out.println("==================================================");
 
-        // --- KONFIRMASI ---
         System.out.print("\nLanjut pembayaran? (Y/N): ");
         String konfirmasi = input.next();
         if (!konfirmasi.equalsIgnoreCase("Y")) return;
 
         boolean lunas = false;
         String metodeBayar = "";
+        double uangDiterima = 0;
 
-        // --- LOOP PEMBAYARAN ---
         while (!lunas) {
             System.out.println("\n1. Cash");
             System.out.println("2. Cashless");
             System.out.print("Metode: ");
             int met = input.nextInt();
 
-            if (met == 1) { // CASH
+            if (met == 1) {
                 metodeBayar = "Cash";
                 System.out.print("Uang: Rp ");
-                double uang = input.nextDouble();
-                if (uang >= totalBayar) {
-                    System.out.printf("Kembalian: Rp%,.0f\n", (uang - totalBayar));
+                uangDiterima = input.nextDouble(); 
+                if (uangDiterima >= totalBayar) {
                     lunas = true;
                 } else {
-                    System.out.printf("Kurang: Rp%,.0f\n", (totalBayar - uang));
+                    System.out.printf("Kurang: Rp%,.0f\n", (totalBayar - uangDiterima));
                 }
-            } else if (met == 2) { // CASHLESS
+            } else if (met == 2) {
                 metodeBayar = "Cashless";
                 System.out.println("Scan QRIS...");
-                // Simulasi sukses
                 lunas = true;
             }
         }
 
-        // --- BAGIAN INI AKU RAPIHIN DIKIT BIAR MASUK DATABASE ---
         if (lunas) {
-            
-            // 1. BIKIN OBJECT TRANSAKSI (Biar cocok sama Service)
             Transaksi trx = new Transaksi();
-            trx.setNamaPembeli("Guest");
+            trx.setNamaPembeli("Guest User"); 
             trx.setMetodeBayar(metodeBayar);
             trx.setTotalAkhir(totalBayar);
             
-            // 2. CONVERT KERANJANG KE LIST PARFUM (Syarat Service)
             List<Parfum> itemsForDb = new ArrayList<>();
             for (ItemTransaksi it : keranjang) {
                 ParfumCollection pc = new ParfumCollection();
                 pc.setNamaProduk(it.namaItem);
-                
                 try {
                     pc.setKetahanan(TingkatKetahanan.valueOf(it.spek.toUpperCase()));
                 } catch (Exception e) {
-                    pc.setKetahanan(TingkatKetahanan.LIGHT); // Default kalau error
+                    pc.setKetahanan(TingkatKetahanan.LIGHT);
                 }
-                
                 pc.setHarga(it.harga);
                 itemsForDb.add(pc);
             }
             trx.setItems(itemsForDb);
-            
-            // 3. PANGGIL SERVICE
-            // Kita pake variabel baru 'trxService' biar ga bentrok sama 'service' di atas
+
             TransaksiService trxService = new TransaksiService();
             trxService.simpanTransaksi(trx);
             
-            System.out.println("\n[SUKSES] Data masuk database & Struk keluar!");
+            if (metodeBayar.equalsIgnoreCase("Cashless")) {
+                QRService qr = new QRService();
+                qr.generatePaymentQR(trx.getIdTransaksi(), totalBayar);
+                System.out.println("-> [QRIS] File QR_Payment_" + trx.getIdTransaksi() + ".png telah dibuat di folder project.");
+            }
+            
+            cetakStrukFinal(trx, uangDiterima);
+            
             keranjang.clear();
         }
     }

@@ -5,6 +5,7 @@
 package itenas.is.perscents.service;
 
 import itenas.is.perscents.model.Parfum;
+import itenas.is.perscents.model.ParfumCollection;
 import itenas.is.perscents.repository.ParfumRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +49,21 @@ public class ParfumService {
 
     public void simpanTransaksi(String toString, double totalBayar, String metodeBayar) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public List<Parfum> ambilSemua() {
+        return repo.findAll();
+    }
+
+    public void tambahData(ParfumCollection p) {
+        repo.insert(p);
+    }
+
+    public void ubahHarga(String nama, double hargaBaru) {
+        repo.updateHarga(nama, hargaBaru);
+    }
+
+    public void hapusData(String nama) {
+        repo.delete(nama);
     }
 }
